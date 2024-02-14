@@ -10,12 +10,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -123,7 +121,7 @@ fun Timer() {
                 if (reward != "") {
                     Text(text = reward)
                     val painter = painterResource(id = R.drawable.slime)
-                    Image(painter = painter, contentDescription = null )
+                    Image(painter = painter, contentDescription = null)
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.egg_hatched),
@@ -174,7 +172,7 @@ fun Timer() {
                                 painter = painterResource(id = R.drawable.big_button_claim),
                                 contentDescription = null,
                                 modifier = Modifier.clickable {
-                                    reward = randomReward();
+                                    reward = randomReward()
                                 },
                                 contentScale = ContentScale.FillWidth,
                             )
@@ -262,7 +260,7 @@ fun formatMS(timeInMS: Long): String {
 
 fun randomReward(): String {
     // TODO - Add reward logic here
-    var reward = Random.nextInt(1,15).toString()
+    var reward = Random.nextInt(1, 15).toString()
     return reward
 
 }
