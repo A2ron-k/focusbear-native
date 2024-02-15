@@ -3,9 +3,9 @@ package com.example.focusbear
 data class User(
     val id: Int,
     val username: String,
-    val currency: Int,
-    val failedSessionCount: Int,
-    val totalSessionCount: Int,
-    val totalTimeFocused: Int,
-    val totalConsecutiveCount: Int
+    var currency: Int,
+    var failedSessionCount: Int,
+    var totalSessionCount: Int,
+    var totalTimeFocused: Int,
+    var totalConsecutiveCount: Int
 )
