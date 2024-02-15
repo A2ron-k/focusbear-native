@@ -31,7 +31,7 @@ class UsersDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         db?.execSQL(createTableQuery)
     }
 
-    //  Upgrade database table
+//  Upgrade database table
 //  Deletes old table, and creates a new one using onCreate function
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         val dropTableQuery = "DROP TABLE IF EXISTS $TABLE_NAME"
