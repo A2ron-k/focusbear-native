@@ -39,23 +39,34 @@ import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
+
+    // Create database helper to access the users & focusSessions db
+    private lateinit var usersDatabaseHelper: UsersDatabaseHelper
+    private lateinit var focusSessionDatabaseHelper: FocusSessionDatabaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialise userdatabasehelper & focusSessiondatabasehelper
+        usersDatabaseHelper = UsersDatabaseHelper(this)
+        focusSessionDatabaseHelper = FocusSessionDatabaseHelper(this)
+
         setContent {
             FocusBearTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Timer()
+                    Timer(usersDatabaseHelper, focusSessionDatabaseHelper)
                 }
             }
         }
     }
 }
 
+// Add the databasehelpers into params when u need to access them
 @Composable
-fun Timer() {
+fun Timer(usersDatabaseHelper: UsersDatabaseHelper, focusSessionDatabaseHelper: FocusSessionDatabaseHelper) {
     var time by remember {
         mutableLongStateOf(0L)
     }
@@ -263,4 +274,64 @@ fun randomReward(): String {
     var reward = Random.nextInt(1, 15).toString()
     return reward
 
+}
+fun testdb(usersDatabaseHelper: UsersDatabaseHelper, focusSessionDatabaseHelper: FocusSessionDatabaseHelper) {
+    // Create a new user
+    val newUser = User(
+        id = 1,
+        username = "john_doe",
+        currency = 100,
+        failedSessionCount = 0,
+        totalSessionCount = 5,
+        totalTimeFocused = 10000,
+        totalConsecutiveCount = 2
+    )
+    usersDatabaseHelper.createUser(newUser)
+
+    // Retrieve all users
+    val userList = usersDatabaseHelper.getAllUsers()
+//    for (user in userList) {
+        // Do something with each user
+//    }
+
+    // Update a user
+    val updatedUser = userList.firstOrNull()
+    updatedUser?.let {
+        it.currency += 50
+        usersDatabaseHelper.updateUser(it)
+    }
+
+    // Delete a user
+    val userToDelete = userList.firstOrNull()
+    userToDelete?.let {
+        usersDatabaseHelper.deleteUser(it.id)
+    }
+
+    // Create a new focus session
+    val newFocusSession = FocusSession(
+        id = 1,
+        timeFocused = 10000,
+        date = System.currentTimeMillis()
+    )
+    focusSessionDatabaseHelper.createFocusSession(newFocusSession)
+
+    // Retrieve all focus sessions
+    val focusSessionList = focusSessionDatabaseHelper.getAllFocusSessions()
+//    Loop through focusSessions - can be used in profile page to load all the sessions
+//    for (focusSession in focusSessionList) {
+        // Do something with each focus session
+//    }
+
+    // Update a focus session
+    val updatedFocusSession = focusSessionList.firstOrNull()
+    updatedFocusSession?.let {
+        it.timeFocused += 5000
+        focusSessionDatabaseHelper.updateFocusSession(it)
+    }
+
+    // Delete a focus session
+    val focusSessionToDelete = focusSessionList.firstOrNull()
+    focusSessionToDelete?.let {
+        focusSessionDatabaseHelper.deleteFocusSession(it.id)
+    }
 }
