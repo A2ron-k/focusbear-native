@@ -43,7 +43,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import androidx.navigation.NavController
 
-
 class MainActivity : ComponentActivity() {
 
     // Create database helper to access the users & focusSessions db
@@ -358,6 +357,7 @@ fun randomReward(): String {
 
 }
 
+
 fun testdb(usersDatabaseHelper: UsersDatabaseHelper, focusSessionDatabaseHelper: FocusSessionDatabaseHelper) {
     // Create a new user
     val newUser = User(
@@ -419,14 +419,4 @@ fun testdb(usersDatabaseHelper: UsersDatabaseHelper, focusSessionDatabaseHelper:
     }
 }
 
-@Composable
-fun Profile() {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {
-        Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Profile")
-            Spacer(modifier = Modifier.fillMaxSize())
-            Text(text = "hihihihi")
-        }
-    }
-}
 
