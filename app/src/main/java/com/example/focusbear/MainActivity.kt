@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -37,6 +38,11 @@ import com.example.focusbear.ui.theme.FocusBearTheme
 import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.composable
+import androidx.navigation.NavController
+
 
 class MainActivity : ComponentActivity() {
 
@@ -53,20 +59,97 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             FocusBearTheme {
+                val navController = rememberNavController()
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                        NavHost(navController = navController, startDestination = "Homepage") {
+                            composable("Homepage") {
+                                Timer(usersDatabaseHelper, focusSessionDatabaseHelper, navController)
+                            }
+                            composable("Profile") {
+                                Profile()
+                            }
+                            composable("Desk") {
+                                // RoomPage()
+                            }
+                        }
+                    }
+                    BottomNavigationBar(navController)
+                }
+            }
+        }
+        /*setContent {
+            FocusBearTheme {
                 // A surface container using the 'background' color from the theme
+                val navController = rememberNavController()
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Timer(usersDatabaseHelper, focusSessionDatabaseHelper)
+                    //Timer(usersDatabaseHelper, focusSessionDatabaseHelper)
+                    NavHost(navController = navController, startDestination = "timer") {
+                        composable("timer") {
+                            Timer(usersDatabaseHelper, focusSessionDatabaseHelper, navController)
+                        }
+                        composable("introduction") {
+                            ProfileScreen()
+                        }
+                    }
                 }
             }
+        }*/
+    }
+}
+@Composable
+fun BottomNavigationBar(navController: NavController) {
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            horizontalArrangement = Arrangement.SpaceAround,
+            //horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.home1),
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable { navController.navigate("Homepage") }
+                    .size(48.dp)
+                //contentScale = ContentScale.Crop
+            )
+            Image(
+                painter = painterResource(id = R.drawable.gallery1),
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable { navController.navigate("Desk") }
+                    .size(48.dp)
+                //contentScale = ContentScale.Crop
+            )
+            Image(
+                painter = painterResource(id = R.drawable.profile1),
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable { navController.navigate("Profile") }
+                    .size(48.dp)
+                //contentScale = ContentScale.Crop
+            )
         }
     }
 }
 
 // Add the databasehelpers into params when u need to access them
 @Composable
-fun Timer(usersDatabaseHelper: UsersDatabaseHelper, focusSessionDatabaseHelper: FocusSessionDatabaseHelper) {
+fun Timer(
+    usersDatabaseHelper: UsersDatabaseHelper,
+    focusSessionDatabaseHelper: FocusSessionDatabaseHelper,
+    navController: NavController
+) {
     var time by remember {
         mutableLongStateOf(0L)
     }
@@ -204,7 +287,6 @@ fun Timer(usersDatabaseHelper: UsersDatabaseHelper, focusSessionDatabaseHelper: 
 
                 } else if (isStarted && !isStopped) {
                     // This part shows the stop
-
                     Image(
                         painter = painterResource(id = R.drawable.big_button_stop),
                         contentDescription = null,
@@ -275,6 +357,7 @@ fun randomReward(): String {
     return reward
 
 }
+
 fun testdb(usersDatabaseHelper: UsersDatabaseHelper, focusSessionDatabaseHelper: FocusSessionDatabaseHelper) {
     // Create a new user
     val newUser = User(
@@ -335,3 +418,15 @@ fun testdb(usersDatabaseHelper: UsersDatabaseHelper, focusSessionDatabaseHelper:
         focusSessionDatabaseHelper.deleteFocusSession(it.id)
     }
 }
+
+@Composable
+fun Profile() {
+    Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {
+        Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "Profile")
+            Spacer(modifier = Modifier.fillMaxSize())
+            Text(text = "hihihihi")
+        }
+    }
+}
+
