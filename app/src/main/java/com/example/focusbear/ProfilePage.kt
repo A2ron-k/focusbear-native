@@ -56,7 +56,7 @@ class ProfilePage {
         ) {
             // user icon
             Image(
-                painter = painterResource(id = R.drawable.egg),
+                painter = painterResource(id = R.drawable.slime),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(128.dp)
