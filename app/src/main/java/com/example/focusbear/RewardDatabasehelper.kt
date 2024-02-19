@@ -9,7 +9,7 @@ class RewardDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
 
     companion object {
         private const val DATABASE_VERSION = 1
-        private const val DATABASE_NAME = "RewardsDB"
+        private const val DATABASE_NAME = "notesapp.db"
         private const val TABLE_REWARDS = "rewards"
         private const val COLUMN_REWARD_IMAGE_RESOURCE_ID = "imageResourceId"
         private const val COLUMN_REWARD_NAME = "name"

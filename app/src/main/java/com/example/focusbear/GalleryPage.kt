@@ -16,12 +16,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavController
 import androidx.compose.material3.Button
-
 
 
 @Composable
@@ -57,12 +57,12 @@ fun Gallery(
                 Text("Go to Shop")
             }
             Spacer(modifier = Modifier.height(16.dp))
-            // Display fetched rewards
-            //if (rewards.isNotEmpty()) {
-                //rewards.forEach { reward ->
-                  //  RewardItem(reward = reward)
-               // }
-           // }
+            //Display fetched rewards
+            if (rewards.isNotEmpty()) {
+                rewards.forEach { reward ->
+                    RewardItem(reward = reward)
+                }
+            }
         }
     }
 }
@@ -70,18 +70,22 @@ fun Gallery(
 
 @Composable
 fun RewardItem(reward: Reward) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Log.d("Reward", "Image Resource ID: ${reward.imageResourceId}")
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(110.dp)
+    ) {
         // Check if the reward has a valid image resource ID
         if (reward.imageResourceId > 1000) {
+            Log.d("Reward", "Image Resource ID: ${reward.imageResourceId}")
             Image(
                 painter = painterResource(id = reward.imageResourceId),
                 contentDescription = reward.name,
-                modifier = Modifier.size(64.dp), // Adjust the size as needed
+                modifier = Modifier.size(64.dp),
                 contentScale = ContentScale.Fit
             )
         }
     }
 }
-
-
