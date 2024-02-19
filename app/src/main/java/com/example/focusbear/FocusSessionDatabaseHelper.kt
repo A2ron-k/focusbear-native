@@ -108,4 +108,5 @@ class FocusSessionDatabaseHelper (context: Context) : SQLiteOpenHelper(context, 
         db.delete(TABLE_NAME, whereClause, whereArgs)
         db.close()
     }
+
 }
