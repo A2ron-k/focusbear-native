@@ -3,6 +3,7 @@ package com.example.focusbear
 import RewardDatabaseHelper
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -50,12 +51,19 @@ fun Gallery(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = { navController.navigate("Shop") }, // Navigate to "Shop" page
-                modifier = Modifier.padding(bottom = 50.dp)
-            ) {
-                Text("Go to Shop")
-            }
+            Image(
+                painter = painterResource(id = R.drawable.shop_button),
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable { navController.navigate("Shop") }
+                    .padding(bottom = 50.dp)
+            )
+//            Button(
+//                onClick = { navController.navigate("Shop") }, // Navigate to "Shop" page
+//                modifier = Modifier.padding(bottom = 50.dp)
+//            ) {
+//                Text("Go to Shop")
+//            }
             Spacer(modifier = Modifier.height(16.dp))
             //Display fetched rewards
             if (rewards.isNotEmpty()) {
