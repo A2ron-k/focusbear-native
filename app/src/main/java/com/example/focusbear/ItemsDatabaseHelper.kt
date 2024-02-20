@@ -21,7 +21,7 @@ class ItemsDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         val createTableQuery = "CREATE TABLE $TABLE_NAME (" +
                 "$COLUMN_ID INTEGER PRIMARY KEY, " +
                 "$COLUMN_NAME TEXT, " +
-                "$COLUMN_IMAGE TEXT, " +
+                "$COLUMN_IMAGE INTEGER, " +
                 "$COLUMN_PRICE INTEGER, " +
                 "$COLUMN_IS_PURCHASED INTEGER)"
         db?.execSQL(createTableQuery)
@@ -60,7 +60,7 @@ class ItemsDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         while (cursor.moveToNext()) {
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE))
+            val image = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IMAGE))
             val price = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRICE))
             val isPurchased = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_PURCHASED))
 
@@ -100,7 +100,7 @@ class ItemsDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
 
         val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
         val name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE))
+        val image = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IMAGE))
         val price = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRICE))
         val isPurchased = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_PURCHASED))
 
