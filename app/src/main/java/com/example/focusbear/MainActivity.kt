@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
                                 Gallery(navController, rewardDatabaseHelper)
                             }
                             composable("Shop") {
-                                //Shop()
+                                Shop()
                             }
                         }
                         BottomNavigationBar(navController, rewardDatabaseHelper)
