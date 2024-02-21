@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -39,6 +40,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -47,6 +49,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -90,63 +93,6 @@ fun Shop(
     var showDialog by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf<Item?>(null) }
 
-    if (showDialog) {
-        Dialog(onDismissRequest = { showDialog = false }) {
-            Box(
-                modifier = Modifier
-                    .size(300.dp, 200.dp)
-                    .background(Color.White, shape = RoundedCornerShape(12.dp))
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.beary),
-                    contentDescription = "Bear",
-                    modifier = Modifier
-                        .size(150.dp)
-                        .align(Alignment.BottomStart)
-                        .padding(start = 0.dp)
-                )
-                Column(
-                    modifier = Modifier.align(Alignment.TopEnd).padding(16.dp)
-                ) {
-                    Text("${selectedItem?.name}", style = MaterialTheme.typography.titleMedium)
-                    Text("${selectedItem?.price} coins to buy ${selectedItem?.name}？")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .align(Alignment.BottomEnd)
-                                .padding(16.dp)
-                        ) {
-                            // confirm
-                            Image(
-                                painter = painterResource(id = R.drawable.yes_button),
-                                contentDescription = "Confirm",
-                                modifier = Modifier
-                                    .size(48.dp)
-                                    .clickable {
-                                        showDialog = false
-                                    }
-                            )
-                            Spacer(modifier = Modifier.width(16.dp))
-                            // cancel button
-                            Image(
-                                painter = painterResource(id = R.drawable.no_button),
-                                contentDescription = "Cancel",
-                                modifier = Modifier
-                                    .size(48.dp)
-                                    .clickable {
-                                        showDialog = false
-                                    }
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -165,7 +111,6 @@ fun Shop(
         )
         Column(
             modifier = Modifier.fillMaxSize(),
-//            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Need to add clickable to buy item
@@ -222,5 +167,78 @@ fun Shop(
             }
         }
 
+    }
+
+    if (showDialog) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.beary),
+                contentDescription = "Bear",
+                modifier = Modifier
+                    .size(350.dp)
+                    .align(Alignment.BottomStart)
+                    .offset(x = (-90).dp)
+                    .offset(y = (-20).dp)
+                    .padding(bottom = 5.dp)
+            )
+
+            // Bubble dialog above the bear
+            Column(
+                modifier = Modifier.align(Alignment.TopEnd).padding(16.dp)
+            ) {
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .offset(y = -100.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.chat_bubble),
+                        contentDescription = "Background",
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .size(300.dp)
+                            .offset(x = 30.dp)
+                    )
+                    Text(
+                        text = "Buy ${selectedItem?.name} for ${selectedItem?.price} coins?",
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(bottom = 140.dp, end = 30.dp)
+                            .offset(x = 15.dp)
+                    )
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(50.dp)
+                            .offset(y = (-40).dp)
+                    ) {
+                        // confirm
+                        Image(
+                            painter = painterResource(id = R.drawable.yes_button),
+                            contentDescription = "Confirm",
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clickable {
+                                    showDialog = false
+                                }
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        // cancel button
+                        Image(
+                            painter = painterResource(id = R.drawable.no_button),
+                            contentDescription = "Cancel",
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clickable {
+                                    showDialog = false
+                                }
+                        )
+                    }
+                }
+            }
+        }
     }
 }
