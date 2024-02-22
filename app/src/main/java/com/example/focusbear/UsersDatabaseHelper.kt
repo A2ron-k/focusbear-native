@@ -53,11 +53,11 @@ class UsersDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         createUser(User(
             id = 1,
             username = "john_doe",
-            currency = 100,
-            failedSessionCount = 0,
-            totalSessionCount = 5,
-            totalTimeFocused = 10000,
-            totalConsecutiveCount = 2
+            currency = 1256,
+            failedSessionCount = 3,
+            totalSessionCount = 12,
+            totalTimeFocused = 18738,
+            totalConsecutiveCount = 4
         ))
     }
     //  Function to add data into database, then close the db connection

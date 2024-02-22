@@ -63,19 +63,10 @@ class MainActivity : ComponentActivity() {
         itemsDatabaseHelper = ItemsDatabaseHelper(this)
 
 
-        usersDatabaseHelper.createTable()
-        focusSessionDatabaseHelper.createTable()
-        itemsDatabaseHelper.createTable()
-        usersDatabaseHelper.createUser(User(
-            id = 1,
-            username = "john_doe",
-            currency = 100,
-            failedSessionCount = 0,
-            totalSessionCount = 5,
-            totalTimeFocused = 10000,
-            totalConsecutiveCount = 2
-        ))
-
+//        usersDatabaseHelper.createTable()
+//        focusSessionDatabaseHelper.createTable()
+//        itemsDatabaseHelper.createTable()
+        
         setContent {
             FocusBearTheme {
                 val navController = rememberNavController()
