@@ -35,6 +35,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.focusbear.ui.theme.FocusBearTheme
 import kotlinx.coroutines.delay
@@ -91,7 +93,7 @@ class MainActivity : ComponentActivity() {
                                 Gallery(navController, rewardDatabaseHelper)
                             }
                             composable("Shop") {
-                                Shop()
+                                Shop(usersDatabaseHelper)
                             }
                         }
                         BottomNavigationBar(navController, rewardDatabaseHelper)
@@ -222,6 +224,26 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
+            Box(
+                modifier = Modifier
+            ) {
+                Row (
+                    modifier = Modifier
+                        .padding(start=24.dp, top=24.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Image(
+                        painter = painterResource(id = R.drawable.coin) ,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(36.dp)
+                    )
+                    Text(
+                        text = userCurrency.toString(),
+                        style = TextStyle(fontWeight = FontWeight.Bold)
+                    )
+                }
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -229,7 +251,6 @@ class MainActivity : ComponentActivity() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-
                 Text(
                     text = formatMS(timeInMS = time),
                     style = MaterialTheme.typography.displayLarge,

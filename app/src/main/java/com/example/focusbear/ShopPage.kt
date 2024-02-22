@@ -52,15 +52,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 
 @Composable
 fun Shop(
+    usersDatabaseHelper: UsersDatabaseHelper,
 //    itemsDatabaseHelper: ItemsDatabaseHelper
 ) {
+    //Get user info
+    val user = usersDatabaseHelper.getUserByID(1)
+    val userCurrency = user.currency
+
     // Get all items and check what is not bought yet
-//    val items = itemsDatabaseHelper.getAllItems()
+    //val items = itemsDatabaseHelper.getAllItems()
     // Dummy data
     val items = arrayOf(
         Item(1, "Item 1", R.drawable.books, 10, 0),
@@ -74,12 +81,6 @@ fun Shop(
         Item(9, "Item 9", R.drawable.books, 90, 0),
         Item(10, "Item 10", R.drawable.mug, 100, 0)
     )
-//    var shopItems = arrayOf<Item>()
-//    for (item in items) {
-//        if (item.isPurchased == 0) {
-//            shopItems += item
-//        }
-//    }
 
     val shopItems = items.filter { it.isPurchased == 0 }
 
@@ -109,6 +110,26 @@ fun Shop(
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
         )
+        Box(
+            modifier = Modifier
+        ) {
+            Row (
+                modifier = Modifier
+                    .padding(start=24.dp, top=24.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Image(
+                    painter = painterResource(id = R.drawable.coin) ,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(36.dp)
+                )
+                Text(
+                    text = userCurrency.toString(),
+                    style = TextStyle(fontWeight = FontWeight.Bold)
+                )
+            }
+        }
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
