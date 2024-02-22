@@ -37,7 +37,7 @@ class ItemsDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
 
     fun createTable() {
         val db = writableDatabase
-        val createTableQuery = "CREATE TABLE $TABLE_NAME (" +
+        val createTableQuery = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
                 "$COLUMN_ID INTEGER PRIMARY KEY, " +
                 "$COLUMN_NAME TEXT, " +
                 "$COLUMN_IMAGE INTEGER, " +

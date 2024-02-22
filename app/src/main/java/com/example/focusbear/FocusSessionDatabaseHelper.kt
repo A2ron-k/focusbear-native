@@ -34,7 +34,7 @@ class FocusSessionDatabaseHelper (context: Context) : SQLiteOpenHelper(context, 
 
     fun createTable(){
         val db = writableDatabase
-        val createTableQuery = "CREATE TABLE $TABLE_NAME (" +
+        val createTableQuery = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
                 "$COLUMN_ID INTEGER PRIMARY KEY, " +
                 "$COLUMN_TIME_FOCUSED INTEGER, " +
                 "$COLUMN_DATE INTEGER)"

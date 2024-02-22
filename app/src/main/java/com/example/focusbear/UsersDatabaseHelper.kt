@@ -41,7 +41,7 @@ class UsersDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
 
     fun createTable(){
         val db = writableDatabase
-        val createTableQuery = "CREATE TABLE $TABLE_NAME (" +
+        val createTableQuery = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
                 "$COLUMN_ID INTEGER PRIMARY KEY, " +
                 "$COLUMN_USERNAME TEXT, " +
                 "$COLUMN_CURRENCY INTEGER, " +
@@ -50,16 +50,17 @@ class UsersDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
                 "$COLUMN_TOTAL_TIME_FOCUSED INTEGER, " +
                 "$COLUMN_TOTAL_CONSECUTIVE_COUNT INTEGER)"
         db.execSQL(createTableQuery)
-        createUser(User(
-            id = 1,
-            username = "john_doe",
-            currency = 1256,
-            failedSessionCount = 3,
-            totalSessionCount = 12,
-            totalTimeFocused = 18738,
-            totalConsecutiveCount = 4
-        ))
+//        createUser(User(
+//            id = 1,
+//            username = "john_doe",
+//            currency = 1256,
+//            failedSessionCount = 3,
+//            totalSessionCount = 12,
+//            totalTimeFocused = 18738,
+//            totalConsecutiveCount = 4
+//        ))
     }
+
     //  Function to add data into database, then close the db connection
     fun createUser(user: User){
         val db = writableDatabase
