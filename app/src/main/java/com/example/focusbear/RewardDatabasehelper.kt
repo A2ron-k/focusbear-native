@@ -30,6 +30,15 @@ class RewardDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
         onCreate(db)
     }
 
+    fun createTable() {
+        val db = writableDatabase
+        val cREATEREWARDSTABLE = ("CREATE TABLE IF NOT EXISTS $TABLE_REWARDS " +
+                "($COLUMN_REWARD_IMAGE_RESOURCE_ID INTEGER PRIMARY KEY," + // Ensure PRIMARY KEY if it's supposed to be
+                "$COLUMN_REWARD_NAME TEXT," +
+                "$COLUMN_REWARD_DESCRIPTION TEXT)")
+        db.execSQL(cREATEREWARDSTABLE)
+    }
+
     @SuppressLint("Range")
     fun addReward(reward: Reward) {
         val db = this.writableDatabase
