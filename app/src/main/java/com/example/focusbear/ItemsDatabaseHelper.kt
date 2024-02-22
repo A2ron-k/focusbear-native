@@ -35,6 +35,17 @@ class ItemsDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         onCreate(db)
     }
 
+    fun createTable() {
+        val db = writableDatabase
+        val createTableQuery = "CREATE TABLE $TABLE_NAME (" +
+                "$COLUMN_ID INTEGER PRIMARY KEY, " +
+                "$COLUMN_NAME TEXT, " +
+                "$COLUMN_IMAGE INTEGER, " +
+                "$COLUMN_PRICE INTEGER, " +
+                "$COLUMN_IS_PURCHASED INTEGER)"
+        db.execSQL(createTableQuery)
+    }
+
     //  Function to add data into database, then close the db connection
     fun createItem(item: Item){
         val db = writableDatabase

@@ -32,6 +32,15 @@ class FocusSessionDatabaseHelper (context: Context) : SQLiteOpenHelper(context, 
         onCreate(db)
     }
 
+    fun createTable(){
+        val db = writableDatabase
+        val createTableQuery = "CREATE TABLE $TABLE_NAME (" +
+                "$COLUMN_ID INTEGER PRIMARY KEY, " +
+                "$COLUMN_TIME_FOCUSED INTEGER, " +
+                "$COLUMN_DATE INTEGER)"
+        db.execSQL(createTableQuery)
+    }
+
     //  Function to add data into database, then close the db connection
     fun createFocusSession(focusSession: FocusSession){
         val db = writableDatabase

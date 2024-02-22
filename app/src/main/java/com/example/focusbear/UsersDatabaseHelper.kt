@@ -39,6 +39,27 @@ class UsersDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         onCreate(db)
     }
 
+    fun createTable(){
+        val db = writableDatabase
+        val createTableQuery = "CREATE TABLE $TABLE_NAME (" +
+                "$COLUMN_ID INTEGER PRIMARY KEY, " +
+                "$COLUMN_USERNAME TEXT, " +
+                "$COLUMN_CURRENCY INTEGER, " +
+                "$COLUMN_FAILED_SESSION_COUNT INTEGER, " +
+                "$COLUMN_TOTAL_SESSION_COUNT INTEGER, " +
+                "$COLUMN_TOTAL_TIME_FOCUSED INTEGER, " +
+                "$COLUMN_TOTAL_CONSECUTIVE_COUNT INTEGER)"
+        db.execSQL(createTableQuery)
+        createUser(User(
+            id = 1,
+            username = "john_doe",
+            currency = 100,
+            failedSessionCount = 0,
+            totalSessionCount = 5,
+            totalTimeFocused = 10000,
+            totalConsecutiveCount = 2
+        ))
+    }
     //  Function to add data into database, then close the db connection
     fun createUser(user: User){
         val db = writableDatabase
