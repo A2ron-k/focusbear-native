@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var usersDatabaseHelper: UsersDatabaseHelper
     private lateinit var focusSessionDatabaseHelper: FocusSessionDatabaseHelper
     private lateinit var rewardDatabaseHelper: RewardDatabaseHelper
+    private lateinit var itemsDatabaseHelper: ItemsDatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +60,21 @@ class MainActivity : ComponentActivity() {
         usersDatabaseHelper = UsersDatabaseHelper(this)
         focusSessionDatabaseHelper = FocusSessionDatabaseHelper(this)
         rewardDatabaseHelper = RewardDatabaseHelper(this)
+        itemsDatabaseHelper = ItemsDatabaseHelper(this)
+
+
+        usersDatabaseHelper.createTable()
+        focusSessionDatabaseHelper.createTable()
+        itemsDatabaseHelper.createTable()
+        usersDatabaseHelper.createUser(User(
+            id = 1,
+            username = "john_doe",
+            currency = 100,
+            failedSessionCount = 0,
+            totalSessionCount = 5,
+            totalTimeFocused = 10000,
+            totalConsecutiveCount = 2
+        ))
 
         setContent {
             FocusBearTheme {
