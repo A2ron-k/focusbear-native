@@ -1,5 +1,6 @@
 package com.example.focusbear
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -35,17 +36,26 @@ import androidx.compose.ui.geometry.Offset
 class ProfilePage {
 }
     @Composable
-    fun Profile() {
+    fun Profile(usersDatabaseHelper: UsersDatabaseHelper) {
         var showStatistics by remember { mutableStateOf(false) }
-        val user = User(
-            id = 1,
-            username = "I'm Egg",
-            currency = 100,
-            failedSessionCount = 3,
-            totalSessionCount = 5,
-            totalTimeFocused = 666,
-            totalConsecutiveCount = 2
-        )
+//        val user = User(
+//            id = 1,
+//            username = "I'm Egg",
+//            currency = 100,
+//            failedSessionCount = 3,
+//            totalSessionCount = 5,
+//            totalTimeFocused = 666,
+//            totalConsecutiveCount = 2
+//        )
+        // Get user and currency
+        val user = usersDatabaseHelper.getUserByID(1)
+        Log.d("UserInformation", "ID: ${user.id}")
+        Log.d("UserInformation", "Username: ${user.username}")
+        Log.d("UserInformation", "Currency: ${user.currency}")
+        Log.d("UserInformation", "Failed Session Count: ${user.failedSessionCount}")
+        Log.d("UserInformation", "Total Session Count: ${user.totalSessionCount}")
+        Log.d("UserInformation", "Total Time Focused: ${user.totalTimeFocused}")
+        Log.d("UserInformation", "Total Consecutive Count: ${user.totalConsecutiveCount}")
 
         Column(
             modifier = Modifier

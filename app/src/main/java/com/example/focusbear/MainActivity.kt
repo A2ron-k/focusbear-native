@@ -62,10 +62,10 @@ class MainActivity : ComponentActivity() {
         rewardDatabaseHelper = RewardDatabaseHelper(this)
         itemsDatabaseHelper = ItemsDatabaseHelper(this)
 
-
-//        usersDatabaseHelper.createTable()
-//        focusSessionDatabaseHelper.createTable()
-//        itemsDatabaseHelper.createTable()
+        // Create tables
+        usersDatabaseHelper.createTable()
+        focusSessionDatabaseHelper.createTable()
+        itemsDatabaseHelper.createTable()
 
         setContent {
             FocusBearTheme {
@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable("Profile") {
-                                Profile()
+                                Profile(usersDatabaseHelper)
                             }
                             composable("Desk") {
                                 Gallery(navController, rewardDatabaseHelper)
@@ -175,6 +175,10 @@ class MainActivity : ComponentActivity() {
         rewardDatabaseHelper: RewardDatabaseHelper,
         navController: NavController
     ) {
+        // Get user and currency
+        val user = usersDatabaseHelper.getUserByID(1)
+        val userCurrency = user.currency
+
         var time by remember {
             mutableLongStateOf(0L)
         }
