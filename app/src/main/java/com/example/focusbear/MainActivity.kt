@@ -38,6 +38,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.focusbear.ui.theme.FocusBearTheme
 import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
@@ -68,6 +69,7 @@ class MainActivity : ComponentActivity() {
         usersDatabaseHelper.createTable()
         focusSessionDatabaseHelper.createTable()
         itemsDatabaseHelper.createTable()
+        rewardDatabaseHelper.createTable()
 
         setContent {
             FocusBearTheme {
@@ -240,7 +242,10 @@ class MainActivity : ComponentActivity() {
                     )
                     Text(
                         text = userCurrency.toString(),
-                        style = TextStyle(fontWeight = FontWeight.Bold)
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     )
                 }
             }
