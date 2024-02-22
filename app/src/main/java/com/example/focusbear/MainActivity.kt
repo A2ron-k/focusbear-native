@@ -56,6 +56,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var rewardDatabaseHelper: RewardDatabaseHelper
     private lateinit var itemsDatabaseHelper: ItemsDatabaseHelper
 
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
