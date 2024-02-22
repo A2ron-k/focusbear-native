@@ -94,10 +94,9 @@ fun Shop(
     var showDialog by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf<Item?>(null) }
 
-
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+//        contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource(id = R.drawable.shop_background),
