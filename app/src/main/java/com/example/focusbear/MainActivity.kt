@@ -323,16 +323,20 @@ class MainActivity : ComponentActivity() {
                             }
 
                         } else {
-                            Button(onClick = {
-                                time = 0
-                                isStarted = false
-                                isStopped = false
-                                isOngoingRound = false
-                                isReward = false
-                                startTime = 0 // Reset start time
-                            }, modifier = Modifier.weight(1f)) {
-                                Text(text = "Reset")
-                            }
+
+                            Image(
+                                painter = painterResource(id = R.drawable.big_button_fail),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .clickable {
+                                        time = 0
+                                        isStarted = false
+                                        isStopped = false
+                                        isOngoingRound = false
+                                        isReward = false
+                                        startTime = 0 // Reset start time
+                                    }
+                            )
                         }
 
                     } else if (isStarted && !isStopped) {
