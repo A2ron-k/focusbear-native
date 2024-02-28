@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var rewardDatabaseHelper: RewardDatabaseHelper
     private lateinit var itemsDatabaseHelper: ItemsDatabaseHelper
 
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -103,25 +103,6 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-            /*setContent {
-            FocusBearTheme {
-                // A surface container using the 'background' color from the theme
-                val navController = rememberNavController()
-                Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
-                ) {
-                    //Timer(usersDatabaseHelper, focusSessionDatabaseHelper)
-                    NavHost(navController = navController, startDestination = "timer") {
-                        composable("timer") {
-                            Timer(usersDatabaseHelper, focusSessionDatabaseHelper, navController)
-                        }
-                        composable("introduction") {
-                            ProfileScreen()
-                        }
-                    }
-                }
-            }
-        }*/
         }
     }
 
