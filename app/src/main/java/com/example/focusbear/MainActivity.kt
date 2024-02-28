@@ -250,7 +250,6 @@ class MainActivity : ComponentActivity() {
                 // TODO - Update the time condition after development is done
                 if (isOngoingRound && time > 5000) {
                     if (reward != "") {
-                        Text(text = reward)
                         val rewarD = Reward(
                             name = "Slime",
                             description = "Just a pink slime.",
