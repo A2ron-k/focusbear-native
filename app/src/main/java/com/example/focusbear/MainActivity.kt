@@ -247,8 +247,7 @@ class MainActivity : ComponentActivity() {
                         .padding(8.dp)
                 )
 
-                // TODO - Update the time condition after development is done
-                if (isOngoingRound && time > 5000) {
+                if (isOngoingRound && time > 900000) {
                     if (reward != "") {
                         val rewarD = Reward(
                             name = "Slime",
@@ -275,7 +274,7 @@ class MainActivity : ComponentActivity() {
                     }
 
 
-                } else if (isOngoingRound && time < 5000) {
+                } else if (isOngoingRound && time < 900000) {
                     Image(
                         painter = painterResource(id = R.drawable.egg_dead_1),
                         contentDescription = null,
@@ -348,9 +347,8 @@ class MainActivity : ComponentActivity() {
                                 isStopped = true // Only mark as stopped
                                 isOngoingRound = true
 
-                                // TODO - Update the time condition after development is done
                                 // Check if elapsed time is greater than 15 minutes (900,000 milliseconds)
-                                if (time > 5000) {
+                                if (time > 900000) {
                                     // Display success message
                                     isReward = true
                                     Toast.makeText(
