@@ -101,4 +101,5 @@ class RewardDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
         db.close()
     }
 
+
 }

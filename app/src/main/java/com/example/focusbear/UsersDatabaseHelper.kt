@@ -50,15 +50,15 @@ class UsersDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
                 "$COLUMN_TOTAL_TIME_FOCUSED INTEGER, " +
                 "$COLUMN_TOTAL_CONSECUTIVE_COUNT INTEGER)"
         db.execSQL(createTableQuery)
-//        createUser(User(
-//            id = 1,
-//            username = "john_doe",
-//            currency = 1256,
-//            failedSessionCount = 3,
-//            totalSessionCount = 12,
-//            totalTimeFocused = 18738,
-//            totalConsecutiveCount = 4
-//        ))
+/*        createUser(User(
+             id = 1,
+             username = "john_doe",
+             currency = 1256,
+             failedSessionCount = 3,
+             totalSessionCount = 12,
+             totalTimeFocused = 18738,
+             totalConsecutiveCount = 4
+        ))*/
     }
 
     //  Function to add data into database, then close the db connection

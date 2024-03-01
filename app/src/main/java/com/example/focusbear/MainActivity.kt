@@ -92,7 +92,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable("Profile") {
-                                Profile(usersDatabaseHelper,focusSessionDatabaseHelper)
+                                Profile(usersDatabaseHelper, focusSessionDatabaseHelper)
                             }
                             composable("Desk") {
                                 Gallery(navController, rewardDatabaseHelper)
@@ -196,7 +196,7 @@ class MainActivity : ComponentActivity() {
         }
 
         var reward by remember {
-            mutableStateOf("")
+            mutableStateOf<Reward?>(null)
         }
 
         val context = LocalContext.current
@@ -213,13 +213,13 @@ class MainActivity : ComponentActivity() {
             Box(
                 modifier = Modifier
             ) {
-                Row (
+                Row(
                     modifier = Modifier
-                        .padding(start=24.dp, top=24.dp),
+                        .padding(start = 24.dp, top = 24.dp),
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     Image(
-                        painter = painterResource(id = R.drawable.coin) ,
+                        painter = painterResource(id = R.drawable.coin),
                         contentDescription = null,
                         modifier = Modifier
                             .size(36.dp)
@@ -249,24 +249,17 @@ class MainActivity : ComponentActivity() {
                         .padding(8.dp)
                 )
 
-                if (isOngoingRound && time > 900000) {
-                    if (reward != "") {
-                        val rewarD = Reward(
-                            name = "Slime",
-                            description = "Just a pink slime.",
-                            imageResourceId = R.drawable.slime
-                        )
-
+                if (isOngoingRound && time > 9000) {
+                    if (reward != null) {
                         // Attempt to add the reward and time to the database
                         try {
-                            rewardDatabaseHelper.addReward(rewarD)
-
+                            reward!!.let { rewardDatabaseHelper.addReward(it) }
                             Log.d("Reward", "Reward added successfully.")
-                            Log.d("Reward", "Image Resource ID: ${rewarD.imageResourceId}")
+                            Log.d("Reward", "Image Resource ID: ${reward!!.imageResourceId}")
                         } catch (e: Exception) {
                             Log.e("Reward", "Error adding reward: ${e.message}")
                         }
-                        val painter = painterResource(id = R.drawable.slime)
+                        val painter = painterResource(id = reward!!.getID())
                         Image(painter = painter, contentDescription = null)
                     } else {
                         Image(
@@ -277,7 +270,7 @@ class MainActivity : ComponentActivity() {
                     }
 
 
-                } else if (isOngoingRound && time < 900000) {
+                } else if (isOngoingRound && time < 9000) {
                     Image(
                         painter = painterResource(id = R.drawable.egg_dead_1),
                         contentDescription = null,
@@ -298,7 +291,7 @@ class MainActivity : ComponentActivity() {
                     if (isStarted && isStopped) {
                         // This part shows the reset
                         if (isReward) {
-                            if (reward != "") {
+                            if (reward != null) {
                                 Image(
                                     painter = painterResource(id = R.drawable.reward_speech),
                                     contentDescription = null,
@@ -310,7 +303,7 @@ class MainActivity : ComponentActivity() {
                                             isOngoingRound = false
                                             isReward = false
                                             startTime = 0 // Reset start time
-                                            reward = ""
+                                            reward = null
                                         }
                                 )
                             } else {
@@ -351,7 +344,7 @@ class MainActivity : ComponentActivity() {
                                 isOngoingRound = true
 
                                 // Check if elapsed time is greater than 15 minutes (900,000 milliseconds)
-                                if (time > 900000) {
+                                if (time > 9000) {
                                     // Display success message
                                     isReward = true
                                     Toast.makeText(
@@ -411,17 +404,51 @@ class MainActivity : ComponentActivity() {
         val secs = TimeUnit.MILLISECONDS.toSeconds(timeInMS) % 60
 
         return String.format("%02d:%02d:%02d", hours, mins, secs)
+    }
 
+    fun randomReward(): Reward? {
+        // Array of reward options
+        val rewardOptions = arrayOf(
+            Reward(
+                name = "Slime",
+                description = "Just a pink slime.",
+                imageResourceId = R.drawable.slime
+            ),
+            Reward(
+                name = "Mug",
+                description = "A cool mug.",
+                imageResourceId = R.drawable.mug
+            ),
+            Reward(
+                name = "Books",
+                description = "A stack of books.",
+                imageResourceId = R.drawable.books
+            ),
+            Reward(
+                name = "Pen Holder",
+                description = "A pen holder.",
+                imageResourceId = R.drawable.pen_holder
+            ),
+            Reward(
+                name = "Cat",
+                description = "A cutie cat.",
+                imageResourceId = R.drawable.cat
+            ),
+            Reward(
+                name = "Plant",
+                description = "A thriving plant, try not to kill it.",
+                imageResourceId = R.drawable.plant
+            )
+            // Add more reward options as needed
+        )
+
+        // Generate a random index within the range of the rewardOptions array
+        val randomIndex = (0 until rewardOptions.size).random()
+        // Return the randomly selected reward
+        return rewardOptions[randomIndex]
     }
 
 
-
-    fun randomReward(): String {
-        // TODO - Add reward logic here
-        var reward = Random.nextInt(1, 15).toString()
-        return reward
-
-    }
 
 
     fun testdb(
