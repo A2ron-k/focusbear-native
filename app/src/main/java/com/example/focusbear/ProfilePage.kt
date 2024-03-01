@@ -36,7 +36,7 @@ import androidx.compose.ui.geometry.Offset
 class ProfilePage {
 }
     @Composable
-    fun Profile(usersDatabaseHelper: UsersDatabaseHelper) {
+    fun Profile(usersDatabaseHelper: UsersDatabaseHelper,focusSessionDatabaseHelper: FocusSessionDatabaseHelper) {
         var showStatistics by remember { mutableStateOf(false) }
 //        val user = User(
 //            id = 1,
@@ -80,7 +80,7 @@ class ProfilePage {
             Text(text = user.username)
 
             // user position
-            Text(text = "Student")
+           // Text(text = "Student")
 
 
             ProfileStatItem(label = "${user.totalTimeFocused} Total Hours Focused")

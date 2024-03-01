@@ -90,7 +90,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable("Profile") {
-                                Profile(usersDatabaseHelper)
+                                Profile(usersDatabaseHelper,focusSessionDatabaseHelper)
                             }
                             composable("Desk") {
                                 Gallery(navController, rewardDatabaseHelper)
