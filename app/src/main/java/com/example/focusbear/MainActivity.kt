@@ -22,33 +22,36 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.focusbear.ui.theme.FocusBearTheme
 import kotlinx.coroutines.delay
-import java.util.concurrent.TimeUnit
-import kotlin.random.Random
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.compose.composable
-import androidx.navigation.NavController
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
 
@@ -167,39 +170,58 @@ class MainActivity : ComponentActivity() {
         val user = usersDatabaseHelper.getUserByID(1)
         val userCurrency = user.currency
 
-        var time by remember {
+        var time by rememberSaveable {
             mutableLongStateOf(0L)
         }
 
         // Flag used to check if the timer has started
-        var isStarted by remember {
+        var isStarted by rememberSaveable {
             mutableStateOf(false)
         }
 
         // Flag used to check if the timer has stopped
-        var isStopped by remember {
-            mutableStateOf(false)
-        }
+        var isStopped by rememberSaveable { mutableStateOf(false) }
+
 
         // Flag used to check if the user is in a round/focus session
-        var isOngoingRound by remember {
+        var isOngoingRound by rememberSaveable {
             mutableStateOf(false)
         }
 
         // Flag used to check if the user has an award pending
-        var isReward by remember {
+        var isReward by rememberSaveable {
             mutableStateOf(false)
         }
 
-        var startTime by remember {
+        var startTime by rememberSaveable {
             mutableLongStateOf(0L)
         }
 
-        var reward by remember {
+        var reward by rememberSaveable {
             mutableStateOf<Reward?>(null)
         }
 
         val context = LocalContext.current
+
+
+        val lifecycleOwner = LocalLifecycleOwner.current
+
+        // This execute code when the activity is paused
+        LaunchedEffect(key1 = lifecycleOwner) {
+            val lifecycle = lifecycleOwner.lifecycle
+            val observer = LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_PAUSE) {
+
+                    if(time > 9000){
+                        isReward = true
+                    }
+
+                    isStopped = true
+                    isOngoingRound = true
+                }
+            }
+            lifecycle.addObserver(observer)
+        }
 
         Box(
             modifier = Modifier.fillMaxSize()
@@ -270,7 +292,7 @@ class MainActivity : ComponentActivity() {
                     }
 
 
-                } else if (isOngoingRound && time < 9000) {
+                } else if (isOngoingRound && isStopped && time < 9000) {
                     Image(
                         painter = painterResource(id = R.drawable.egg_dead_1),
                         contentDescription = null,
@@ -371,7 +393,7 @@ class MainActivity : ComponentActivity() {
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 isStarted = true; isStopped = false; startTime =
-                                System.currentTimeMillis()
+                                System.currentTimeMillis();
                             },
                             contentScale = ContentScale.FillWidth,
                         )
@@ -447,9 +469,6 @@ class MainActivity : ComponentActivity() {
         // Return the randomly selected reward
         return rewardOptions[randomIndex]
     }
-
-
-
 
     fun testdb(
         usersDatabaseHelper: UsersDatabaseHelper,
