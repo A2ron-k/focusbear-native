@@ -49,6 +49,8 @@ class ProfilePage {
 //        )
         // Get user and currency
         val user = usersDatabaseHelper.getUserByID(1)
+        val sessionHistory = focusSessionDatabaseHelper.getFocusSessionByID(1)
+
         Log.d("UserInformation", "ID: ${user.id}")
         Log.d("UserInformation", "Username: ${user.username}")
         Log.d("UserInformation", "Currency: ${user.currency}")
@@ -105,9 +107,13 @@ class ProfilePage {
 
             // history
             Text(text = "Session History")
-            SessionHistoryItem(date = "01/01/2024", startTime = "10:00 AM", endTime = "12:00 PM")
-            SessionHistoryItem(date = "02/01/2024", startTime = "02:00 PM", endTime = "04:00 PM")
-            SessionHistoryItem(date = "19/02/2024", startTime = "09:00 PM", endTime = "11:00 PM")
+          /*  sessionHistory.forEach { session ->
+                SessionHistoryItem(
+                    date = session.date.toString(),
+                    startTime = session.startTime.toString(),
+                    endTime = session.endTime.toString()
+                )
+            }*/
         }
     }
 

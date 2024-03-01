@@ -255,9 +255,10 @@ class MainActivity : ComponentActivity() {
                             imageResourceId = R.drawable.slime
                         )
 
-                        // Attempt to add the reward to the database
+                        // Attempt to add the reward and time to the database
                         try {
                             rewardDatabaseHelper.addReward(rewarD)
+
                             Log.d("Reward", "Reward added successfully.")
                             Log.d("Reward", "Image Resource ID: ${rewarD.imageResourceId}")
                         } catch (e: Exception) {
