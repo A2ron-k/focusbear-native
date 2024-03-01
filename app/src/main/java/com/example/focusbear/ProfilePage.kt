@@ -116,8 +116,24 @@ class ProfilePage {
         }
     }
 
+/* trying to change into minute, fail now
+fun convertMillisecondsToMinutes(milliseconds: Long): String  {
+    val minutes = milliseconds.toDouble() / (1000 * 60)
+    return "%.2f".format(minutes)
+}*/
+
+fun formatTime(time: String): String {
+    val timeInSeconds = time.toDouble() / 1000.0
+    return "%.1f".format(timeInSeconds)
+}
+
     @Composable
     fun SessionHistoryItem(date: String, time: String) {
+        /* minutes part, fail now
+        val timeInMilliseconds = time.toLongOrNull() ?: 0
+        val timeInMinutes = convertMillisecondsToMinutes(timeInMilliseconds)
+        val formattedTime = "%d minutes".format(timeInMinutes)
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -125,8 +141,20 @@ class ProfilePage {
             //elevation = 4.dp
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(date)
-                Text(time)
+                Text("Date: $date")
+                Text("Time: $formattedTime")
+            }
+        }*/
+        val formattedTime = formatTime(time)
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("FocusDate: $date")
+                Text("FocusTime: $formattedTime"+"s")
             }
         }
     }
