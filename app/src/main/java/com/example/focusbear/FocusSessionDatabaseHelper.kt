@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.content.ContentValues
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class FocusSessionDatabaseHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
 
@@ -63,8 +64,8 @@ class FocusSessionDatabaseHelper (context: Context) : SQLiteOpenHelper(context, 
         //  iterate through rows of table
         while (cursor.moveToNext()) {
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
-            val timeFocused = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TIME_FOCUSED))
-            val date = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_DATE))
+            val timeFocused = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_TIME_FOCUSED))
+            val date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE))
 
             val focusSession = FocusSession(id, timeFocused, date)
             focusSessionsList.add(focusSession)
@@ -87,7 +88,16 @@ class FocusSessionDatabaseHelper (context: Context) : SQLiteOpenHelper(context, 
         val whereClause = "${COLUMN_ID} = ?"
         val whereArgs = arrayOf(focusSession.id.toString())
         db.update(TABLE_NAME, values, whereClause, whereArgs)
+        //test
+        val rowsAffected = db.update(TABLE_NAME, values, whereClause, whereArgs)
         db.close()
+
+        //test
+        if (rowsAffected > 0) {
+            Log.d("FocusSessionUpdate", "Successfully saved a record with ID: ${focusSession.id}")
+        } else {
+            Log.e("FocusSessionUpdate", "Failed to save record with ID: ${focusSession.id}")
+        }
     }
 
     // Function to get one particular row of data by ID
@@ -99,8 +109,8 @@ class FocusSessionDatabaseHelper (context: Context) : SQLiteOpenHelper(context, 
         cursor.moveToFirst()
 
         val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
-        val timeFocused = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TIME_FOCUSED))
-        val date = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_DATE))
+        val timeFocused = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_TIME_FOCUSED))
+        val date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE))
 
         cursor.close()
         db.close()

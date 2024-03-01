@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -47,6 +46,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import androidx.navigation.NavController
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
 
@@ -390,6 +392,14 @@ class MainActivity : ComponentActivity() {
                 delay(1000)
                 time = System.currentTimeMillis() - startTime
             }
+
+            if (isStopped) {
+                val currentDateInMillis = Calendar.getInstance().timeInMillis
+                val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+                val formattedDate = dateFormat.format(currentDateInMillis)
+                val focusSession = FocusSession(1, time, formattedDate)
+                focusSessionDatabaseHelper.createFocusSession(focusSession)
+            }
         }
     }
 
@@ -403,6 +413,8 @@ class MainActivity : ComponentActivity() {
         return String.format("%02d:%02d:%02d", hours, mins, secs)
 
     }
+
+
 
     fun randomReward(): String {
         // TODO - Add reward logic here
@@ -451,7 +463,7 @@ class MainActivity : ComponentActivity() {
         val newFocusSession = FocusSession(
             id = 1,
             timeFocused = 10000,
-            date = System.currentTimeMillis(),
+            date = "20240301",
         )
         focusSessionDatabaseHelper.createFocusSession(newFocusSession)
 

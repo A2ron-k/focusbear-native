@@ -38,18 +38,10 @@ class ProfilePage {
     @Composable
     fun Profile(usersDatabaseHelper: UsersDatabaseHelper,focusSessionDatabaseHelper: FocusSessionDatabaseHelper) {
         var showStatistics by remember { mutableStateOf(false) }
-//        val user = User(
-//            id = 1,
-//            username = "I'm Egg",
-//            currency = 100,
-//            failedSessionCount = 3,
-//            totalSessionCount = 5,
-//            totalTimeFocused = 666,
-//            totalConsecutiveCount = 2
-//        )
+
         // Get user and currency
         val user = usersDatabaseHelper.getUserByID(1)
-        val sessionHistory = focusSessionDatabaseHelper.getFocusSessionByID(1)
+        val sessionHistory = focusSessionDatabaseHelper.getAllFocusSessions()
 
         Log.d("UserInformation", "ID: ${user.id}")
         Log.d("UserInformation", "Username: ${user.username}")
@@ -81,10 +73,6 @@ class ProfilePage {
             // username
             Text(text = user.username)
 
-            // user position
-           // Text(text = "Student")
-
-
             ProfileStatItem(label = "${user.totalTimeFocused} Total Hours Focused")
             ProfileStatItem(label = "${user.failedSessionCount} Failed Sessions")
             ProfileStatItem(label = "${user.totalConsecutiveCount} Focus Streak")
@@ -107,13 +95,12 @@ class ProfilePage {
 
             // history
             Text(text = "Session History")
-          /*  sessionHistory.forEach { session ->
+            sessionHistory.forEach { session ->
                 SessionHistoryItem(
                     date = session.date.toString(),
-                    startTime = session.startTime.toString(),
-                    endTime = session.endTime.toString()
+                    time = session.timeFocused.toString(),
                 )
-            }*/
+            }
         }
     }
 
@@ -130,7 +117,7 @@ class ProfilePage {
     }
 
     @Composable
-    fun SessionHistoryItem(date: String, startTime: String, endTime: String) {
+    fun SessionHistoryItem(date: String, time: String) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -139,7 +126,7 @@ class ProfilePage {
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(date)
-                Text("$startTime - $endTime")
+                Text(time)
             }
         }
     }
