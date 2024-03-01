@@ -212,12 +212,14 @@ class MainActivity : ComponentActivity() {
             val observer = LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_PAUSE) {
 
-                    if(time > 9000){
-                        isReward = true
-                    }
+                    if(isStarted){
+                        if(time > 9000){
+                            isReward = true
+                        }
 
-                    isStopped = true
-                    isOngoingRound = true
+                        isStopped = true
+                        isOngoingRound = true
+                    }
                 }
             }
             lifecycle.addObserver(observer)
