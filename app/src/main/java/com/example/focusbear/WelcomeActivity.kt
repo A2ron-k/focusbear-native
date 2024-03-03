@@ -21,22 +21,36 @@ class WelcomeActivity : AppIntro2() {
 //            manager.setFirstRun()
             addSlide(AppIntroFragment.createInstance(
                 title = "Welcome to FocusBear!",
-                description = "This is our home page, where you will be hatching our dear pets and items! For starters, when you focus for more than 15 minutes, you will get a reward! Of course, after a period of time, this time constraint will be adjusted based on your focus habits!",
-                imageDrawable = R.drawable.cat,
+                description = "Welcome to your new productivity hub!, where you will be hatching our dear pets and items by focusing on your tasks!",
+                imageDrawable = R.drawable.beary,
+                titleColorRes = R.color.black,
+                descriptionColorRes = R.color.black,
+                backgroundColorRes = R.color.pastel_yellow,
+            ))
+            addSlide(AppIntroFragment.createInstance(
+                title = "Start focusing!",
+                description = "For starters, when you focus for more than 15 minutes, you will get a reward! " +
+                        "Of course, after a period of time, this time constraint will be adjusted based on your focus habits!" +
+                        "To start focusing, simply click on the 'Start Focusing' button to begin!",
+                imageDrawable = R.drawable.tutorial1,
                 titleColorRes = R.color.black,
                 descriptionColorRes = R.color.black,
                 backgroundColorRes = R.color.pastel_yellow,
             ))
             addSlide(AppIntroFragment.createInstance(
                 title = "Desk",
-                description = "Here you can decorate your desk with all your rewards that you have bought/earned!",
+                description = "Here you can decorate your desk with all your rewards that you have bought/earned." +
+                        "To get to our shop to buy new items, you can click on the 'Go To Shop' button!",
+                imageDrawable = R.drawable.tutorial2,
                 titleColorRes = R.color.black,
                 descriptionColorRes = R.color.black,
                 backgroundColorRes = R.color.pastel_blue,
             ))
             addSlide(AppIntroFragment.createInstance(
                 title = "Shop",
-                description = "Here you can buy all our different items to decorate your desk!",
+                description = "Here you can buy all our different items to decorate your desk!" +
+                        "Simply click on any of the items to buy them and a pop up will ask for confirmation.",
+                imageDrawable = R.drawable.tutorial3,
                 titleColorRes = R.color.black,
                 descriptionColorRes = R.color.black,
                 backgroundColorRes = R.color.pastel_pink,
@@ -44,6 +58,7 @@ class WelcomeActivity : AppIntro2() {
             addSlide(AppIntroFragment.createInstance(
                 title = "Profile",
                 description = "Here you can find all your past focus sessions, along with statistics on how much you have focused on!",
+                imageDrawable = R.drawable.tutorial4,
                 titleColorRes = R.color.black,
                 descriptionColorRes = R.color.black,
                 backgroundColorRes = R.color.pastel_peach,
