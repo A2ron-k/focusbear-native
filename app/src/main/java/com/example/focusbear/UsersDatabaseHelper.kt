@@ -50,15 +50,26 @@ class UsersDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
                 "$COLUMN_TOTAL_TIME_FOCUSED INTEGER, " +
                 "$COLUMN_TOTAL_CONSECUTIVE_COUNT INTEGER)"
         db.execSQL(createTableQuery)
-/*        createUser(User(
-             id = 1,
-             username = "john_doe",
-             currency = 1256,
-             failedSessionCount = 3,
-             totalSessionCount = 12,
-             totalTimeFocused = 18738,
-             totalConsecutiveCount = 4
-        ))*/
+        val query = "SELECT COUNT(*) FROM $TABLE_NAME"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+        val userCount = cursor.getInt(0)
+        cursor.close()
+
+        // If the user count is 0, insert a new user
+        if (userCount == 0) {
+            // Insert a new user
+            createUser(User(
+                id = 1,
+                username = "john_doe",
+                currency = 1256,
+                failedSessionCount = 3,
+                totalSessionCount = 12,
+                totalTimeFocused = 18738,
+                totalConsecutiveCount = 4
+            ))
+        }
+
     }
 
     //  Function to add data into database, then close the db connection
