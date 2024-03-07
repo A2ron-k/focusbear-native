@@ -17,7 +17,7 @@ class PreferencesManager(context: Context) {
 
     fun isFirstRun() = preferences.getBoolean(FIRST_TIME, true)
 
-    fun setFirstRun() {
+    fun setFirstRun(b: Boolean) {
         editor.putBoolean(FIRST_TIME, false).commit()
         editor.commit()
     }

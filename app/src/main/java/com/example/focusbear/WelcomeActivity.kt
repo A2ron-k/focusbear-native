@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
-import com.github.appintro.AppIntroPageTransformerType
 
 class WelcomeActivity : AppIntro2() {
     private lateinit var manager: PreferencesManager
+    private val status = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,8 +17,12 @@ class WelcomeActivity : AppIntro2() {
 
         isColorTransitionsEnabled = true
 
-//        if (manager.isFirstRun()) {
-//            manager.setFirstRun()
+            /*if (!manager.isFirstRun()) {
+                goToMain()
+            }
+*/
+        if (manager.isFirstRun()) {
+            manager.setFirstRun(status)
             addSlide(AppIntroFragment.createInstance(
                 title = "Welcome to FocusBear!",
                 description = "Welcome to your new productivity hub!, where you will be hatching our dear pets and items by focusing on your tasks!",
@@ -63,9 +67,9 @@ class WelcomeActivity : AppIntro2() {
                 descriptionColorRes = R.color.black,
                 backgroundColorRes = R.color.pastel_peach,
             ))
-//        } else {
-//            goToMain()
-//        }
+        } else {
+            goToMain()
+        }
     }
 
     private fun goToMain() {
